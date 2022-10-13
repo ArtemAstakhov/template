@@ -1,0 +1,38 @@
+.page {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.title {
+  text-align: center;
+}
+
+.list {
+  margin-top: 20px;
+}
+
+.list-item {
+  border: 1px solid black;
+  border-radius: 12px;
+  padding: 12px;
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.list-item + .list-item {
+  margin-top: 4px;
+}
+
+.list-item__actions {
+  display: flex;
+  align-items: center;
+}
+
+.list-item__action {
+  padding: 4px;
+  box-sizing: border-box;
+  cursor: pointer;
+}

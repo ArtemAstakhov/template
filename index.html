@@ -6,7 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="./styles.css" />
-    <script src="./script.js"></script>
+    <script defer src="./script.js"></script>
   </head>
-  <body></body>
+  <body>
+    <div class="page">
+      <h1 class="title">Todo List</h1>
+
+      <form>
+        <input type="text" placeholder="Следующее дело" />
+        <button>Добавить</button>
+      </form>
+
+      <div class="list"></div>
+    </div>
+
+    <template id="list-item-template">
+      <div class="list-item">
+        <div class="list-item__text"></div>
+        <div class="list-item__actions">
+          <div class="list-item__action">E</div>
+          <div class="list-item__action">C</div>
+          <div class="list-item__action">D</div>
+        </div>
+      </div>
+    </template>
+  </body>
 </html>
