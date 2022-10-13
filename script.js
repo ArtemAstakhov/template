@@ -4,8 +4,8 @@ const list = document.querySelector(".list");
 const listItemTemplate = document
   .querySelector("#list-item-template")
   .content.querySelector(".list-item");
-
-console.log(listItemTemplate);
+const input = document.querySelector(".input");
+const form = document.querySelector(".form");
 
 const items = [
   {
@@ -27,7 +27,25 @@ const createItem = (item) => {
 
   console.log(elementName);
 
-  list.append(element);
+  list.prepend(element);
 };
 
 items.forEach(createItem);
+
+const clearInput = () => {
+  input.value = "";
+};
+
+const handleFormSubmit = (event) => {
+  event.preventDefault();
+
+  const newTask = input.value;
+
+  createItem({
+    text: newTask,
+  });
+
+  clearInput();
+};
+
+form.addEventListener("submit", handleFormSubmit);
