@@ -19,7 +19,7 @@ const items = [
 ];
 
 const EDIT_BUTTON_TEXT = "Редактировать";
-const NEW_BUTTON_TEXT = "Создать";
+const NEW_BUTTON_TEXT = "Добавить";
 
 let activeItem;
 
