@@ -1,7 +1,7 @@
-const list = document.querySelector(".list");
-const listItemTemplate = document
-  .querySelector("#list-item-template")
-  .content.querySelector(".list-item");
+import { ToDoItem } from "./Item.js";
+import { ItemsList } from "./ItemsList.js";
+
+const list = new ItemsList(".list");
 const input = document.querySelector(".input");
 const button = document.querySelector(".button");
 const form = document.querySelector(".form");
@@ -24,19 +24,24 @@ const NEW_BUTTON_TEXT = "Добавить";
 let activeItem;
 
 const createItem = (item) => {
-  const element = listItemTemplate.cloneNode(true);
-  const elementName = element.querySelector(".list-item__text");
-  const removeButton = element.querySelector(".list-item__action_type_delete");
-  const editButton = element.querySelector(".list-item__action_type_edit");
-  const copyButton = element.querySelector(".list-item__action_type_copy");
+  const toDoItem = new ToDoItem(
+    item,
+    (copy, element) => {
+      list.insertBefore(copy, element.nextSibling);
+    },
+    () => {
+      console.log("click");
+    },
+    (data) => {
+      input.value = data.text;
+      button.textContent = EDIT_BUTTON_TEXT;
+      activeItem = element;
+    }
+  );
 
-  elementName.textContent = item.text;
+  const element = toDoItem.create();
 
-  removeButton.addEventListener("click", () => removeItem(element));
-  editButton.addEventListener("click", () => editItem(element, item));
-  copyButton.addEventListener("click", () => copyItem(element));
-
-  list.prepend(element);
+  list.render(element);
 };
 
 items.forEach(createItem);
@@ -67,22 +72,6 @@ const handleFormSubmit = (event) => {
 
     clearInput();
   }
-};
-
-const removeItem = (element) => {
-  element.remove();
-};
-
-const editItem = (element, item) => {
-  input.value = item.text;
-  button.textContent = EDIT_BUTTON_TEXT;
-  activeItem = element;
-};
-
-const copyItem = (element) => {
-  const copy = element.cloneNode(true);
-
-  list.insertBefore(copy, element.nextSibling);
 };
 
 form.addEventListener("submit", handleFormSubmit);
