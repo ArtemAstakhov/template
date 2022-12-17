@@ -54,3 +54,7 @@
   color: white;
   padding: 8px 14px;
 }
+
+.item__action_hidden {
+  display: none;
+}

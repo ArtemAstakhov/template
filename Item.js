@@ -10,15 +10,23 @@ export class ToDoItem {
   _onClick;
   _onEdit;
 
-  constructor(data, onCopy, onClick, onEdit) {
+  constructor(data, onCopy, onClick, onEdit, onRemove) {
     this.data = data;
     this.getTemplate();
     this._onCopy = onCopy;
     this._onClick = onClick;
     this._onEdit = onEdit;
+    this._onRemove = onRemove;
+
+    console.log(this.data);
+
+    this.edit = this.edit.bind(this);
+    this.copy = this.copy.bind(this);
+    this.delete = this.delete.bind(this);
+    this.handleRemove = this.handleRemove.bind(this);
   }
 
-  copy() {
+  async copy() {
     const copy = this.element.cloneNode(true);
     this._onCopy(copy, this.element);
   }
@@ -29,6 +37,10 @@ export class ToDoItem {
 
   delete() {
     this.element.remove();
+  }
+
+  handleRemove() {
+    this._onRemove(this);
   }
 
   getTemplate() {
@@ -50,6 +62,16 @@ export class ToDoItem {
       ".list-item__action_type_copy"
     );
 
+    this.copyButton.innerHTML = this.data.likes.length;
+
+    if (this.data.likes.some((l) => l.userId === window.userInfo.id)) {
+      this.copyButton.classList.remove("item__action_hidden");
+    }
+
+    if (this.data.creator.userId === window.userInfo.id) {
+      this.removeButton.classList.remove("item__action_hidden");
+    }
+
     this.elementName.textContent = this.data.text;
 
     this._setListeners();
@@ -59,7 +81,7 @@ export class ToDoItem {
 
   _setListeners() {
     this.elementName.addEventListener("click", this._onClick);
-    this.removeButton.addEventListener("click", this.delete);
+    this.removeButton.addEventListener("click", this.handleRemove);
     this.editButton.addEventListener("click", this.edit);
     this.copyButton.addEventListener("click", this.copy);
   }
